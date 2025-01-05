@@ -168,9 +168,40 @@ export default function Page() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {!searchTerm &&
+            filters.maxPrice === 50 &&
+            filters.modType === 'all' &&
+            filters.tags.length === 0 &&
+            filteredMods.length > 0 && (
+              <div className="bg-background/20 backdrop-blur-sm border border-accent/40 rounded-lg p-4 hover:border-accent/60 hover:bg-background/30 transition-all min-h-[200px] h-full flex flex-col">
+                <div className="flex justify-between items-start gap-4">
+                  <div className="min-w-0">
+                    <div className="flex items-center gap-2">
+                      <h2 className="text-xl font-bold text-text">
+                        Found a New Mod?
+                      </h2>
+                    </div>
+                    <p className="text-text/80 mt-2">
+                      Check any Minecraft mod for malware using Ratter Scanner
+                      before installing - it's free and easy!
+                    </p>
+                  </div>
+                </div>
+                <button
+                  onClick={() =>
+                    window.open('https://scan.ratterscanner.com/', '_blank')
+                  }
+                  className="w-full mt-auto px-4 py-2 bg-accent/60 hover:bg-accent text-text rounded-lg transition-colors"
+                >
+                  Open Scanner
+                </button>
+              </div>
+            )}
+
           {filteredMods.map((mod, index) => (
             <ModCard key={index} {...mod} />
           ))}
+
           {filteredMods.length === 0 && (
             <div className="col-span-full text-center text-text/60">
               No mods found matching your criteria.

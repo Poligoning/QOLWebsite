@@ -14,20 +14,35 @@ export default function Background() {
 
     setCanvasSize();
 
-    const particles = [];
-    const numParticles = 150;
+    const calculateParticles = () => {
+      // Base particle count for 1920x1080 is 150
+      const baseArea = 1920 * 1080;
+      const currentArea = window.innerWidth * window.innerHeight;
+      const scaleFactor = currentArea / baseArea;
 
-    for (let i = 0; i < numParticles; i++) {
-      particles.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 3 + 1,
-        speedX: Math.random() * 0.5 - 0.25,
-        speedY: Math.random() * 0.5 - 0.25,
-        alpha: Math.random() * 0.4 + 0.3,
-        deltaAlpha: Math.random() * 0.005 + 0.002,
-      });
-    }
+      // Minimum of 50 particles, scale linearly otherwise
+      return Math.max(50, Math.floor(150 * scaleFactor));
+    };
+
+    const initParticles = () => {
+      const particles = [];
+      const numParticles = calculateParticles();
+
+      for (let i = 0; i < numParticles; i++) {
+        particles.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          size: Math.random() * 3 + 1,
+          speedX: Math.random() * 0.5 - 0.25,
+          speedY: Math.random() * 0.5 - 0.25,
+          alpha: Math.random() * 0.4 + 0.3,
+          deltaAlpha: Math.random() * 0.005 + 0.002,
+        });
+      }
+      return particles;
+    };
+
+    let particles = initParticles();
 
     function animate() {
       ctx.fillStyle = '#030807';
@@ -60,6 +75,7 @@ export default function Background() {
 
     const handleResize = () => {
       setCanvasSize();
+      particles = initParticles(); // Recalculate particles on resize
     };
 
     window.addEventListener('resize', handleResize);
