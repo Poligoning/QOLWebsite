@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import Toggle from '@/components/Toggle';
 import { IntegerSlider } from '@/components/Sliders';
+import Select from '@/components/Select';
 
 export default function Filter({ isOpen, onClose, filters, setFilters }) {
   const tags = ['Utility', 'Dungeons', 'QOL', 'OpenSRC', 'Performance'];
 
   const [warning, setWarning] = useState('');
 
-  // Ensure maxPrice defaults to 0 if somehow undefined or null
   useEffect(() => {
     if (filters.maxPrice == null) {
       setFilters((prev) => ({ ...prev, maxPrice: 0 }));
     }
   }, [filters.maxPrice, setFilters]);
 
-  const handleTypeChange = (e) => {
-    const type = e.target.value;
+  const handleTypeChange = (type) => {
     if (type === 'free') {
       setWarning('Free mods only selected - paid mods will be hidden');
       setFilters((prev) => ({ ...prev, modType: type, maxPrice: 0 }));
@@ -61,28 +60,24 @@ export default function Filter({ isOpen, onClose, filters, setFilters }) {
         />
       )}
 
-      {/* Filter Bar */}
       <div
-        className={`relative w-80 bg-[#0c1015] p-6 flex flex-col gap-6 h-full transition-transform duration-300 transform ${
+        className={`relative w-80 bg-background/80 backdrop-blur-sm border-l border-white/10 p-6 flex flex-col gap-6 h-full transition-transform duration-300 transform ${
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="flex justify-between items-center">
-          <h3 className="text-2xl font-bold text-white">Filters</h3>
+          <h3 className="text-2xl font-bold text-text">Filters</h3>
           <button
             onClick={onClose}
-            className="text-gray-400 hover:text-white text-2xl font-bold"
+            className="text-text/60 hover:text-text text-2xl font-bold transition-colors"
             aria-label="Close Filters"
           >
             &times;
           </button>
         </div>
 
-        {/* Price Range Slider */}
         <div>
-          <h4 className="text-lg font-medium text-gray-200 mb-2">
-            Price Range
-          </h4>
+          <h4 className="text-lg font-medium text-text/90 mb-2">Price Range</h4>
           <IntegerSlider
             min={0}
             max={50}
@@ -95,32 +90,30 @@ export default function Filter({ isOpen, onClose, filters, setFilters }) {
           )}
         </div>
 
-        {/* Type Selection */}
         <div>
-          <h4 className="text-lg font-medium text-gray-200 mb-2">Type</h4>
-          <select
+          <h4 className="text-lg font-medium text-text/90 mb-2">Type</h4>
+          <Select
             value={filters.modType}
             onChange={handleTypeChange}
-            className="w-full bg-[#151b23] text-blue-100 rounded border border-blue-500/20 px-3 py-2"
-          >
-            <option value="all">All</option>
-            <option value="free">Free Only</option>
-            <option value="paid">Paid Only</option>
-          </select>
+            options={[
+              { value: 'all', label: 'All' },
+              { value: 'free', label: 'Free Only' },
+              { value: 'paid', label: 'Paid Only' },
+            ]}
+          />
         </div>
 
-        {/* Tag Selection */}
         <div>
-          <h4 className="text-lg font-medium text-gray-200 mb-2">Tags</h4>
+          <h4 className="text-lg font-medium text-text/90 mb-2">Tags</h4>
           <div className="flex flex-wrap gap-2">
             {tags.map((tag) => (
               <button
                 key={tag}
                 onClick={() => toggleTag(tag)}
-                className={`px-3 py-1 rounded text-sm ${
+                className={`px-3 py-1 rounded text-sm transition-colors ${
                   filters.tags.includes(tag)
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-[#151b23] text-blue-100'
+                    ? 'bg-accent text-background'
+                    : 'bg-background/40 backdrop-blur-sm text-text border border-primary/20'
                 }`}
               >
                 {tag}
@@ -129,8 +122,7 @@ export default function Filter({ isOpen, onClose, filters, setFilters }) {
           </div>
         </div>
 
-        {/* Cheats Toggle */}
-        <div className="mt-auto border-t border-gray-700 pt-4">
+        <div className="mt-auto border-t border-white/10 pt-4">
           <Toggle
             defaultValue={filters.showCheats}
             onChange={(enabled) =>
@@ -142,7 +134,7 @@ export default function Filter({ isOpen, onClose, filters, setFilters }) {
 
         <button
           onClick={resetFilters}
-          className="mt-4 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors duration-200"
+          className="mt-4 px-4 py-2 bg-secondary hover:bg-accent text-text rounded-lg transition-colors duration-200"
         >
           Reset Filters
         </button>

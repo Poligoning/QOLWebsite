@@ -8,13 +8,17 @@ export default function ModCard({
   type,
 }) {
   return (
-    <div className="bg-[#0c1015] border border-white/10 rounded-lg p-4 hover:border-blue-500/40 transition-colors min-h-[200px] h-full flex flex-col">
+    <div className="bg-background/40 backdrop-blur-sm border border-white/10 rounded-lg p-4 hover:border-accent/40 transition-colors min-h-[200px] h-full flex flex-col">
       <div className="flex justify-between items-start gap-4">
         <div className="min-w-0">
           <div className="flex items-center gap-2">
             <h2 className="text-xl font-bold text-white truncate">{title}</h2>
             <span
-              className={`px-2 py-0.5 rounded text-xs ${type === 'Cheat' ? 'bg-red-500/20 text-red-400' : 'bg-green-500/20 text-green-400'}`}
+              className={`px-2 py-0.5 rounded text-xs ${
+                type === 'Cheat'
+                  ? 'bg-red-500/20 text-red-400'
+                  : 'bg-primary/20 text-primary'
+              }`}
             >
               {type}
             </span>
@@ -24,7 +28,7 @@ export default function ModCard({
             {tags.map((tag, index) => (
               <span
                 key={index}
-                className="px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded text-xs"
+                className="px-2 py-0.5 bg-secondary/20 text-secondary rounded text-xs"
               >
                 {tag}
               </span>
@@ -35,9 +39,8 @@ export default function ModCard({
           {github && (
             <button
               onClick={() => window.open(github, '_blank')}
-              className="p-2 bg-[#151b23] rounded-lg hover:bg-[#1f2937] transition-colors"
+              className="p-2 bg-background/60 rounded-lg hover:bg-accent/20 transition-colors"
             >
-              {/* Ty Claude */}
               <svg
                 width="20"
                 height="20"
@@ -52,9 +55,8 @@ export default function ModCard({
           {discord && (
             <button
               onClick={() => window.open(discord, '_blank')}
-              className="p-2 bg-[#151b23] rounded-lg hover:bg-[#1f2937] transition-colors"
+              className="p-2 bg-background/60 rounded-lg hover:bg-accent/20 transition-colors"
             >
-              {/* Ty Claude */}
               <svg
                 width="20"
                 height="20"
@@ -70,7 +72,7 @@ export default function ModCard({
       </div>
       <button
         onClick={() => window.open(downloads, '_blank')}
-        className="w-full mt-auto px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+        className="w-full mt-auto px-4 py-2 bg-secondary hover:bg-accent text-white rounded-lg transition-colors"
       >
         Download
       </button>

@@ -8,8 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        background: 'var(--background)',
-        foreground: 'var(--foreground)',
+        text: '#e0f0ec',
+        background: '#030807',
+        primary: '#92dac7',
+        secondary: '#237b63',
+        accent: '#3fd2aa',
       },
       fontFamily: {
         sans: ['var(--font-comfortaa)', 'sans-serif'],

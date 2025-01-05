@@ -133,13 +133,13 @@ export default function Page() {
   if (isLoading) {
     return (
       <div className="flex h-screen items-center justify-center">
-        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-blue-500"></div>
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-accent"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen flex flex-col relative text-white font-sans overflow-hidden select-none">
+    <div className="min-h-screen flex flex-col relative text-text font-sans overflow-hidden select-none">
       <Header />
       <Background />
       <main className="flex-1 container mx-auto px-4 py-8 z-10">
@@ -150,9 +150,9 @@ export default function Page() {
               <SearchBar onChange={setSearchTerm} />
               <button
                 onClick={() => setIsFilterOpen(true)}
-                className="p-2 bg-[#151b23] rounded-lg hover:bg-[#1f2937] transition-colors"
+                className="p-2 bg-background/40 backdrop-blur-sm rounded-lg hover:bg-accent/20 transition-colors"
               >
-                <Sliders size={20} />
+                <Sliders size={20} className="text-text" />
               </button>
             </div>
             <div className="flex items-center justify-center">
@@ -172,7 +172,7 @@ export default function Page() {
             <ModCard key={index} {...mod} />
           ))}
           {filteredMods.length === 0 && (
-            <div className="col-span-full text-center text-gray-400">
+            <div className="col-span-full text-center text-text/60">
               No mods found matching your criteria.
             </div>
           )}

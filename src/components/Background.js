@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 
 export default function Background() {
   const canvasRef = useRef(null);
-  const shootingStarsRef = useRef([]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,80 +14,43 @@ export default function Background() {
 
     setCanvasSize();
 
-    // Define the stars
-    const stars = [];
-    const numStars = 150;
+    const particles = [];
+    const numParticles = 150;
 
-    // Initialize stars with random positions and properties
-    for (let i = 0; i < numStars; i++) {
-      stars.push({
+    for (let i = 0; i < numParticles; i++) {
+      particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        radius: Math.random() * 1.2 + 0.5,
-        alpha: Math.random(),
-        delta: Math.random() * 0.02 + 0.005,
+        size: Math.random() * 3 + 1,
+        speedX: Math.random() * 0.5 - 0.25,
+        speedY: Math.random() * 0.5 - 0.25,
+        alpha: Math.random() * 0.4 + 0.3,
+        deltaAlpha: Math.random() * 0.005 + 0.002,
       });
     }
-
-    // Create Shooting Stars
-    function createShootingStar() {
-      const shootingStar = {
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height * 0.5,
-        length: Math.random() * 80 + 10,
-        speed: Math.random() * 4 + 6,
-        angle: Math.PI / 4 + ((Math.random() - 0.5) * Math.PI) / 6,
-        opacity: 1,
-      };
-      shootingStarsRef.current.push(shootingStar);
-    }
-
-    // Calls the stars
-    const shootingStarInterval = setInterval(() => {
-      // Adjust for more/less Shooting Stars!!
-      if (Math.random() < 0.035) {
-        createShootingStar();
-      }
-    }, 100);
 
     function animate() {
-      ctx.fillStyle = 'rgb(2, 2, 20)';
+      ctx.fillStyle = '#030807';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      stars.forEach((star) => {
-        star.alpha += star.delta;
-        if (star.alpha <= 0 || star.alpha >= 1) {
-          star.delta = -star.delta;
+      particles.forEach((particle) => {
+        particle.alpha += particle.deltaAlpha;
+        if (particle.alpha <= 0.3 || particle.alpha >= 0.7) {
+          particle.deltaAlpha = -particle.deltaAlpha;
         }
+
+        particle.x += particle.speedX;
+        particle.y += particle.speedY;
+
+        if (particle.x < 0) particle.x = canvas.width;
+        if (particle.x > canvas.width) particle.x = 0;
+        if (particle.y < 0) particle.y = canvas.height;
+        if (particle.y > canvas.height) particle.y = 0;
+
         ctx.beginPath();
-        ctx.arc(star.x, star.y, star.radius, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 255, 255, ${star.alpha})`;
+        ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(146, 218, 199, ${particle.alpha})`;
         ctx.fill();
-      });
-
-      shootingStarsRef.current.forEach((shootingStar, index) => {
-        ctx.beginPath();
-        ctx.moveTo(shootingStar.x, shootingStar.y);
-        const endX =
-          shootingStar.x + Math.cos(shootingStar.angle) * shootingStar.length;
-        const endY =
-          shootingStar.y + Math.sin(shootingStar.angle) * shootingStar.length;
-        ctx.lineTo(endX, endY);
-        ctx.strokeStyle = `rgba(255, 255, 255, ${shootingStar.opacity})`;
-        ctx.lineWidth = 3;
-        ctx.stroke();
-
-        shootingStar.x += Math.cos(shootingStar.angle) * shootingStar.speed;
-        shootingStar.y += Math.sin(shootingStar.angle) * shootingStar.speed;
-        shootingStar.opacity -= 0.02;
-
-        if (
-          shootingStar.opacity <= 0 ||
-          shootingStar.x > canvas.width ||
-          shootingStar.y > canvas.height
-        ) {
-          shootingStarsRef.current.splice(index, 1);
-        }
       });
 
       requestAnimationFrame(animate);
@@ -103,7 +65,6 @@ export default function Background() {
     window.addEventListener('resize', handleResize);
     return () => {
       window.removeEventListener('resize', handleResize);
-      clearInterval(shootingStarInterval);
     };
   }, []);
 
@@ -111,7 +72,7 @@ export default function Background() {
     <canvas
       ref={canvasRef}
       className="fixed inset-0 z-[-1]"
-      style={{ backgroundColor: '#020214' }}
+      style={{ backgroundColor: '#030807' }}
     />
   );
 }

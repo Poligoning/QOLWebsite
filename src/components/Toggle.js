@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 
-// Basic Boolean Setting
 export default function Toggle({
   defaultValue = false,
   onChange,
@@ -36,15 +35,15 @@ export default function Toggle({
 
   return (
     <div className="flex items-center gap-3">
-      {label && <span className="text-sm text-gray-300 flex-1">{label}</span>}
+      {label && <span className="text-sm text-text/80 flex-1">{label}</span>}
       <div
         onClick={handleClick}
         className={`relative rounded-full cursor-pointer transition-all duration-300 shadow-inner ${
-          enabled ? 'bg-blue-500' : 'bg-gray-700'
+          enabled ? 'bg-accent' : 'bg-secondary/30'
         } ${sizeClass.wrapper}`}
       >
         <div
-          className={`absolute bg-white rounded-full shadow-md transform transition-transform duration-300 ease-in-out ${
+          className={`absolute bg-text rounded-full shadow-md transform transition-transform duration-300 ease-in-out ${
             enabled ? sizeClass.translate : ''
           } ${sizeClass.circle}`}
         />

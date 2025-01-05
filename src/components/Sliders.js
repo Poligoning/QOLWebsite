@@ -1,5 +1,3 @@
-// Taken from Polinex
-
 'use client';
 
 import { useState, useRef } from 'react';
@@ -67,27 +65,27 @@ function IntegerSlider({ name, min, max, startValue, onChange }) {
         value={value}
         onChange={handleSliderChange}
         className="
-                 w-40 h-3 rounded-lg appearance-none cursor-pointer
-                 bg-gray-700
-                 [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
-                 [&::-webkit-slider-thumb]:rounded-full
-                 [&::-webkit-slider-thumb]:bg-white
-                 [&::-webkit-slider-thumb]:shadow-lg
-                 [&::-webkit-slider-thumb]:transition-transform
-                 [&::-webkit-slider-thumb]:duration-200
-                 [&::-webkit-slider-thumb]:hover:scale-110
-                 [&::-webkit-slider-thumb]:active:scale-125
-                 [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
-                 [&::-moz-range-thumb]:rounded-full
-                 [&::-moz-range-thumb]:bg-white
-                 [&::-moz-range-thumb]:shadow-lg
-                 [&::-moz-range-thumb]:transition-transform
-                 [&::-moz-range-thumb]:duration-200
-                 [&::-moz-range-thumb]:hover:scale-110
-                 [&::-moz-range-thumb]:active:scale-125
-             "
+                w-40 h-3 rounded-lg appearance-none cursor-pointer
+                bg-secondary/20
+                [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
+                [&::-webkit-slider-thumb]:rounded-full
+                [&::-webkit-slider-thumb]:bg-text
+                [&::-webkit-slider-thumb]:shadow-lg
+                [&::-webkit-slider-thumb]:transition-transform
+                [&::-webkit-slider-thumb]:duration-200
+                [&::-webkit-slider-thumb]:hover:scale-110
+                [&::-webkit-slider-thumb]:active:scale-125
+                [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
+                [&::-moz-range-thumb]:rounded-full
+                [&::-moz-range-thumb]:bg-text
+                [&::-moz-range-thumb]:shadow-lg
+                [&::-moz-range-thumb]:transition-transform
+                [&::-moz-range-thumb]:duration-200
+                [&::-moz-range-thumb]:hover:scale-110
+                [&::-moz-range-thumb]:active:scale-125
+            "
         style={{
-          background: `linear-gradient(to right, #3B82F6 ${percentage}%, #374151 ${percentage}%)`,
+          background: `linear-gradient(to right, #3fd2aa ${percentage}%, #237b63 ${percentage}%)`,
         }}
       />
       <div className="relative ml-3">
@@ -98,7 +96,7 @@ function IntegerSlider({ name, min, max, startValue, onChange }) {
           onChange={handleInputChange}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          className="w-20 bg-[#151b23] text-blue-100 rounded border border-blue-500/20 px-2 py-1 text-center focus:outline-none focus:border-blue-500/40"
+          className="w-20 bg-background/40 backdrop-blur-sm text-text rounded border border-primary/20 px-2 py-1 text-center focus:outline-none focus:border-primary/40"
         />
       </div>
     </div>
@@ -177,27 +175,27 @@ function DecimalSlider({ name, min, max, startValue, onChange }) {
         value={value * 100}
         onChange={handleSliderChange}
         className="
-                    w-40 h-3 rounded-lg appearance-none cursor-pointer
-                    bg-gray-700
-                    [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
-                    [&::-webkit-slider-thumb]:rounded-full
-                    [&::-webkit-slider-thumb]:bg-white
-                    [&::-webkit-slider-thumb]:shadow-lg
-                    [&::-webkit-slider-thumb]:transition-transform
-                    [&::-webkit-slider-thumb]:duration-200
-                    [&::-webkit-slider-thumb]:hover:scale-110
-                    [&::-webkit-slider-thumb]:active:scale-125
-                    [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
-                    [&::-moz-range-thumb]:rounded-full
-                    [&::-moz-range-thumb]:bg-white
-                    [&::-moz-range-thumb]:shadow-lg
-                    [&::-moz-range-thumb]:transition-transform
-                    [&::-moz-range-thumb]:duration-200
-                    [&::-moz-range-thumb]:hover:scale-110
-                    [&::-moz-range-thumb]:active:scale-125
-                "
+                   w-40 h-3 rounded-lg appearance-none cursor-pointer
+                   bg-secondary/20
+                   [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
+                   [&::-webkit-slider-thumb]:rounded-full
+                   [&::-webkit-slider-thumb]:bg-text
+                   [&::-webkit-slider-thumb]:shadow-lg
+                   [&::-webkit-slider-thumb]:transition-transform
+                   [&::-webkit-slider-thumb]:duration-200
+                   [&::-webkit-slider-thumb]:hover:scale-110
+                   [&::-webkit-slider-thumb]:active:scale-125
+                   [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
+                   [&::-moz-range-thumb]:rounded-full
+                   [&::-moz-range-thumb]:bg-text
+                   [&::-moz-range-thumb]:shadow-lg
+                   [&::-moz-range-thumb]:transition-transform
+                   [&::-moz-range-thumb]:duration-200
+                   [&::-moz-range-thumb]:hover:scale-110
+                   [&::-moz-range-thumb]:active:scale-125
+               "
         style={{
-          background: `linear-gradient(to right, #3B82F6 ${percentage}%, #374151 ${percentage}%)`,
+          background: `linear-gradient(to right, #3fd2aa ${percentage}%, #237b63 ${percentage}%)`,
         }}
       />
       <input
@@ -207,7 +205,7 @@ function DecimalSlider({ name, min, max, startValue, onChange }) {
         onChange={handleInputChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        className="ml-3 w-20 bg-[#151b23] text-blue-100 rounded border border-blue-500/20 px-2 py-1 text-right focus:outline-none focus:border-blue-500/40"
+        className="ml-3 w-20 bg-background/40 backdrop-blur-sm text-text rounded border border-primary/20 px-2 py-1 text-right focus:outline-none focus:border-primary/40"
       />
     </div>
   );
