@@ -39,11 +39,11 @@ export default function Filter({ isOpen, onClose, filters, setFilters }) {
 
   const resetFilters = () => {
     setFilters({
-      maxPrice: 0,
       modType: 'all',
       tags: [],
       showCheats: false,
     });
+    handlePriceChange(50);
     setWarning('');
   };
 

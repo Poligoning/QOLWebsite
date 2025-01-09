@@ -1,11 +1,16 @@
 'use client';
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 
-function IntegerSlider({ name, min, max, startValue, onChange }) {
+function IntegerSlider({ name, min, max, startValue, onChange, disabled }) {
   const [value, setValue] = useState(startValue);
   const [inputValue, setInputValue] = useState(startValue.toString());
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    setValue(startValue);
+    setInputValue(startValue.toString());
+  }, [startValue]);
 
   const handleSliderChange = (e) => {
     const newValue = parseInt(e.target.value);
@@ -64,26 +69,28 @@ function IntegerSlider({ name, min, max, startValue, onChange }) {
         max={max}
         value={value}
         onChange={handleSliderChange}
+        disabled={disabled}
         className="
-                w-40 h-3 rounded-lg appearance-none cursor-pointer
-                bg-secondary/20
-                [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
-                [&::-webkit-slider-thumb]:rounded-full
-                [&::-webkit-slider-thumb]:bg-text
-                [&::-webkit-slider-thumb]:shadow-lg
-                [&::-webkit-slider-thumb]:transition-transform
-                [&::-webkit-slider-thumb]:duration-200
-                [&::-webkit-slider-thumb]:hover:scale-110
-                [&::-webkit-slider-thumb]:active:scale-125
-                [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
-                [&::-moz-range-thumb]:rounded-full
-                [&::-moz-range-thumb]:bg-text
-                [&::-moz-range-thumb]:shadow-lg
-                [&::-moz-range-thumb]:transition-transform
-                [&::-moz-range-thumb]:duration-200
-                [&::-moz-range-thumb]:hover:scale-110
-                [&::-moz-range-thumb]:active:scale-125
-            "
+         w-40 h-3 rounded-lg appearance-none cursor-pointer
+         bg-secondary/20
+         [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
+         [&::-webkit-slider-thumb]:rounded-full
+         [&::-webkit-slider-thumb]:bg-text
+         [&::-webkit-slider-thumb]:shadow-lg
+         [&::-webkit-slider-thumb]:transition-transform
+         [&::-webkit-slider-thumb]:duration-200
+         [&::-webkit-slider-thumb]:hover:scale-110
+         [&::-webkit-slider-thumb]:active:scale-125
+         [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
+         [&::-moz-range-thumb]:rounded-full
+         [&::-moz-range-thumb]:bg-text
+         [&::-moz-range-thumb]:shadow-lg
+         [&::-moz-range-thumb]:transition-transform
+         [&::-moz-range-thumb]:duration-200
+         [&::-moz-range-thumb]:hover:scale-110
+         [&::-moz-range-thumb]:active:scale-125
+         disabled:opacity-50
+       "
         style={{
           background: `linear-gradient(to right, #3fd2aa ${percentage}%, #237b63 ${percentage}%)`,
         }}
@@ -96,17 +103,23 @@ function IntegerSlider({ name, min, max, startValue, onChange }) {
           onChange={handleInputChange}
           onBlur={handleBlur}
           onKeyDown={handleKeyDown}
-          className="w-20 bg-background/40 backdrop-blur-sm text-text rounded border border-primary/20 px-2 py-1 text-center focus:outline-none focus:border-primary/40"
+          disabled={disabled}
+          className="w-20 bg-background/40 backdrop-blur-sm text-text rounded border border-primary/20 px-2 py-1 text-center focus:outline-none focus:border-primary/40 disabled:opacity-50"
         />
       </div>
     </div>
   );
 }
 
-function DecimalSlider({ name, min, max, startValue, onChange }) {
+function DecimalSlider({ name, min, max, startValue, onChange, disabled }) {
   const [value, setValue] = useState(startValue);
   const [inputValue, setInputValue] = useState(startValue.toFixed(2));
   const inputRef = useRef(null);
+
+  useEffect(() => {
+    setValue(startValue);
+    setInputValue(startValue.toFixed(2));
+  }, [startValue]);
 
   const handleSliderChange = (e) => {
     const newValue = parseFloat((e.target.value / 100).toFixed(2));
@@ -174,26 +187,28 @@ function DecimalSlider({ name, min, max, startValue, onChange }) {
         max={max * 100}
         value={value * 100}
         onChange={handleSliderChange}
+        disabled={disabled}
         className="
-                   w-40 h-3 rounded-lg appearance-none cursor-pointer
-                   bg-secondary/20
-                   [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
-                   [&::-webkit-slider-thumb]:rounded-full
-                   [&::-webkit-slider-thumb]:bg-text
-                   [&::-webkit-slider-thumb]:shadow-lg
-                   [&::-webkit-slider-thumb]:transition-transform
-                   [&::-webkit-slider-thumb]:duration-200
-                   [&::-webkit-slider-thumb]:hover:scale-110
-                   [&::-webkit-slider-thumb]:active:scale-125
-                   [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
-                   [&::-moz-range-thumb]:rounded-full
-                   [&::-moz-range-thumb]:bg-text
-                   [&::-moz-range-thumb]:shadow-lg
-                   [&::-moz-range-thumb]:transition-transform
-                   [&::-moz-range-thumb]:duration-200
-                   [&::-moz-range-thumb]:hover:scale-110
-                   [&::-moz-range-thumb]:active:scale-125
-               "
+         w-40 h-3 rounded-lg appearance-none cursor-pointer
+         bg-secondary/20
+         [&::-webkit-slider-thumb]:w-5 [&::-webkit-slider-thumb]:h-5
+         [&::-webkit-slider-thumb]:rounded-full
+         [&::-webkit-slider-thumb]:bg-text
+         [&::-webkit-slider-thumb]:shadow-lg
+         [&::-webkit-slider-thumb]:transition-transform
+         [&::-webkit-slider-thumb]:duration-200
+         [&::-webkit-slider-thumb]:hover:scale-110
+         [&::-webkit-slider-thumb]:active:scale-125
+         [&::-moz-range-thumb]:w-5 [&::-moz-range-thumb]:h-5
+         [&::-moz-range-thumb]:rounded-full
+         [&::-moz-range-thumb]:bg-text
+         [&::-moz-range-thumb]:shadow-lg
+         [&::-moz-range-thumb]:transition-transform
+         [&::-moz-range-thumb]:duration-200
+         [&::-moz-range-thumb]:hover:scale-110
+         [&::-moz-range-thumb]:active:scale-125
+         disabled:opacity-50
+       "
         style={{
           background: `linear-gradient(to right, #3fd2aa ${percentage}%, #237b63 ${percentage}%)`,
         }}
@@ -205,7 +220,8 @@ function DecimalSlider({ name, min, max, startValue, onChange }) {
         onChange={handleInputChange}
         onBlur={handleBlur}
         onKeyDown={handleKeyDown}
-        className="ml-3 w-20 bg-background/40 backdrop-blur-sm text-text rounded border border-primary/20 px-2 py-1 text-right focus:outline-none focus:border-primary/40"
+        disabled={disabled}
+        className="ml-3 w-20 bg-background/40 backdrop-blur-sm text-text rounded border border-primary/20 px-2 py-1 text-right focus:outline-none focus:border-primary/40 disabled:opacity-50"
       />
     </div>
   );

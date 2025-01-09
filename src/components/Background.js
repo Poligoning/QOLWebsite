@@ -28,6 +28,7 @@ export default function Background() {
       const particles = [];
       const numParticles = calculateParticles();
 
+      // Create particles with randomized values
       for (let i = 0; i < numParticles; i++) {
         particles.push({
           x: Math.random() * canvas.width,
@@ -48,6 +49,7 @@ export default function Background() {
       ctx.fillStyle = '#030807';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
+      // move them around
       particles.forEach((particle) => {
         particle.alpha += particle.deltaAlpha;
         if (particle.alpha <= 0.3 || particle.alpha >= 0.7) {
