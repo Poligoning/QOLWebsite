@@ -10,7 +10,7 @@ export default function Header() {
           <Link href="/" className="flex items-center gap-2">
             <Image src="/logo.png" alt="Logo" width={32} height={32} />
             <span className="text-xl md:text-2xl font-bold text-white">
-              Ratter Scanner
+              QOL Site
             </span>
           </Link>
 

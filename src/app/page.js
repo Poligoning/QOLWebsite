@@ -9,73 +9,6 @@ import Filter from '@/components/Filter';
 import { Sliders } from 'lucide-react';
 import Toggle from '@/components/Toggle';
 
-const mods = [
-  {
-    title: 'Not Enough Updates',
-    description: 'ram eater',
-    github: 'https://github.com/NotEnoughUpdates/NotEnoughUpdates',
-    discord: 'https://discord.gg/moulberry',
-    downloads: '/download/neu',
-    tags: ['Utility', 'Dungeons', 'OpenSRC'],
-    type: 'Legit',
-    price: 0,
-  },
-  {
-    title: 'Skyblock Addons',
-    description: 'boom i cant think right now',
-    github: 'https://github.com/BiscuitDevelopment/SkyblockAddons',
-    discord: 'placeholder',
-    downloads: '/download/sba',
-    tags: ['Utility', 'QOL', 'OpenSRC'],
-    type: 'Legit',
-    price: 0,
-  },
-  {
-    title: 'Skyblock Extras',
-    description: 'skytils but u pay 5USD',
-    discord: 'placeholder',
-    downloads: '/download/sbe',
-    tags: ['Utility', 'Dungeons', 'QOL'],
-    type: 'Legit',
-    price: 5,
-  },
-  {
-    title: 'Pizza Client',
-    description: 'goat goat goat',
-    discord: 'https://discord.gg/piza',
-    downloads: '/download/pizza',
-    tags: ['Dungeons', 'Utility'],
-    type: 'Cheat',
-    price: 15,
-  },
-  {
-    title: 'Taunahi',
-    description: 'farmmmm.',
-    discord: 'https://discord.gg/taunahi',
-    downloads: '/download/taunahi',
-    tags: ['QOL', 'Utility'],
-    type: 'Cheat',
-    price: 35,
-  },
-  {
-    title: 'Patcher',
-    description: 'good also',
-    github: 'https://github.com/Sk1erLLC/Patcher',
-    downloads: '/download/patcher',
-    tags: ['Performance', 'OpenSRC'],
-    type: 'Legit',
-    price: 0,
-  },
-  {
-    title: 'Optifine',
-    description: 'good',
-    downloads: '/download/optifine',
-    tags: ['Performance'],
-    type: 'Legit',
-    price: 0,
-  },
-];
-
 export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
@@ -86,12 +19,27 @@ export default function Page() {
     tags: [],
     showCheats: false,
   });
-  const [filteredMods, setFilteredMods] = useState(mods);
+  const [mods, setMods] = useState([]);
+  const [filteredMods, setFilteredMods] = useState([]);
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000);
-    return () => clearTimeout(timer);
+    fetchMods();
   }, []);
+
+  const fetchMods = async () => {
+    try {
+      const response = await fetch('/api/mods');
+      const data = await response.json();
+      if (data.success) {
+        setMods(data.data);
+        setFilteredMods(data.data);
+      }
+      setIsLoading(false);
+    } catch (error) {
+      console.error('Error fetching mods:', error);
+      setIsLoading(false);
+    }
+  };
 
   useEffect(() => {
     const search = searchTerm.toLowerCase();
@@ -128,7 +76,7 @@ export default function Page() {
         );
       })
     );
-  }, [searchTerm, filters]);
+  }, [searchTerm, filters, mods]);
 
   if (isLoading) {
     return (
@@ -168,42 +116,36 @@ export default function Page() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-          {!searchTerm &&
-            filters.maxPrice === 50 &&
-            filters.modType === 'all' &&
-            filters.tags.length === 0 &&
-            filteredMods.length > 0 && (
-              <div className="bg-background/20 backdrop-blur-sm border border-accent/40 rounded-lg p-4 hover:border-accent/60 hover:bg-background/30 transition-all min-h-[200px] h-full flex flex-col">
-                <div className="flex justify-between items-start gap-4">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <h2 className="text-xl font-bold text-text">
-                        Found a New Mod?
-                      </h2>
-                    </div>
-                    <p className="text-text/80 mt-2">
-                      Check any Minecraft mod for malware using Ratter Scanner
-                      before installing - it's free and easy!
-                    </p>
-                  </div>
+          <div className="bg-background/20 backdrop-blur-sm border border-accent/40 rounded-lg p-4 hover:border-accent/60 hover:bg-background/30 transition-all min-h-[200px] h-full flex flex-col">
+            <div className="flex justify-between items-start gap-4">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-bold text-text">
+                    Found a New Mod?
+                  </h2>
                 </div>
-                <button
-                  onClick={() =>
-                    window.open('https://scan.ratterscanner.com/', '_blank')
-                  }
-                  className="w-full mt-auto px-4 py-2 bg-accent/60 hover:bg-accent text-text rounded-lg transition-colors"
-                >
-                  Open Scanner
-                </button>
+                <p className="text-text/80 mt-2">
+                  Check any Minecraft mod for malware using Ratter Scanner
+                  before installing - it's free and easy!
+                </p>
               </div>
-            )}
+            </div>
+            <button
+              onClick={() =>
+                window.open('https://scan.ratterscanner.com/', '_blank')
+              }
+              className="w-full mt-auto px-4 py-2 bg-accent/60 hover:bg-accent text-text rounded-lg transition-colors"
+            >
+              Open Scanner
+            </button>
+          </div>
 
-          {filteredMods.map((mod, index) => (
-            <ModCard key={index} {...mod} />
+          {filteredMods.map((mod) => (
+            <ModCard key={mod.id} {...mod} />
           ))}
 
           {filteredMods.length === 0 && (
-            <div className="col-span-full text-center text-text/60">
+            <div className="col-span-2 text-center text-text/60 lg:col-span-2">
               No mods found matching your criteria.
             </div>
           )}
