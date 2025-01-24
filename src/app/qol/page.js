@@ -5,7 +5,7 @@ import Header from '@/components/Header';
 import Background from '@/components/Background';
 import SearchBar from '@/components/SearchBar';
 import ModCard from '@/components/ModCard';
-import Filter from '@/components/LegitFilter';
+import Filter from '@/components/Filter';
 import { Sliders } from 'lucide-react';
 import Toggle from '@/components/Toggle';
 
@@ -103,6 +103,16 @@ export default function Page() {
                 <Sliders size={20} className="text-text" />
               </button>
             </div>
+          </div>
+          <div className="flex items-center justify-center">
+            <Toggle
+              size="small"
+              defaultValue={filters.showCheats}
+              onChange={(enabled) =>
+                setFilters({ ...filters, showCheats: enabled })
+              }
+              label="Show modifications that are against server rules"
+            />
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
